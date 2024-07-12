@@ -1,0 +1,88 @@
+body {
+  padding: .5rem;
+
+  width: 100%;
+  height: 100vh;
+
+  position: relative;
+}
+
+/* * {
+  outline: 1px solid red;
+} */
+
+body:has(menu:hover) menu .xr-button p {
+  max-width: 5rem;
+  opacity: 1;
+  margin-left: .25rem;
+}
+
+body:has(menu:hover) menu {
+  width: 10rem;
+}
+
+body:has(menu:hover) root {
+  width: calc(100% - 10.5rem);
+  margin-left: 10.5rem;
+}
+
+menu {
+  position: fixed;
+
+  width: 4.5rem;
+  height: calc(100% - 1rem);
+
+  background: var(--xr-color-bg-b);
+
+  border-radius: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .5rem;
+
+  padding: .5rem;
+
+  transition: width .25s ease-in-out;
+}
+
+root {
+  margin-left: 5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: calc(100% - 5rem);
+  height: 100%;
+
+  border-radius: .25rem;
+
+  background: var(--xr-color-bg-b);
+
+  transition: width .25s ease-in-out, margin-left .25s ease-in-out;
+}
+
+.xr-menu-button {
+  width: 100%;
+  height: 3.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow: hidden;
+}
+
+.xr-menu-button svg {
+  margin-left: .5rem;
+}
+
+.xr-menu-button p {
+  max-width: 0px;
+  opacity: 0;
+  margin-left: 0rem;
+
+  transition: max-width .25s ease-in-out, opacity .25s ease-in-out, margin-left .25s ease-in-out;
+}
