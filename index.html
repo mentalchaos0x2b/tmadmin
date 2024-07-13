@@ -1,112 +1,124 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="src/assets/TMW.png" type="image/x-icon">
-    <title>TMAdmin</title>
-  </head>
-  <body>
-    
-    <menu>
-      <button data-view="control" class="xr-button xr-button-animate xr-menu-button xr-menu-active">
-         <i data-feather="box"></i>
-         <p>Управление</p>
-      </button>
-      <button data-view="notepad" class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="edit"></i>
-         <p>Заметки</p>
-      </button>
-      <button data-view="settings" class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="sliders"></i>
-         <p>Настройки</p>
-      </button>
-      <button data-view="update" class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="download"></i>
-         <p>Обновления</p>
-      </button>
-    </menu>
 
-    <root>
-      <view data-view="control">
-        <view-window data-title="Основное">
-          <xr-row class="xr-host-input">
-            <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
-            <input class="xr-input control-host flex110" type="text" placeholder="Хост">
-          </xr-row>
-          <input type="text" readonly class="xr-input xr-w100" type="text" placeholder="LAPS">
-          <flex-row>
-            <button class="xr-button">
-              <i data-feather="eye"></i>
-              <p>VNC</p>
-            </button>
-            <button class="xr-button">
-              <i data-feather="terminal"></i>
-              <p>CMD</p>
-            </button>
-          </flex-row>
-          <button class="xr-button xr-w100">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" href="src/assets/TMW.png" type="image/x-icon">
+  <title>TMAdmin</title>
+</head>
+
+<body>
+
+  <menu>
+    <button data-view="control" class="xr-button xr-button-animate xr-menu-button xr-menu-active">
+      <i data-feather="box"></i>
+      <p>Управление</p>
+    </button>
+    <button data-view="notepad" class="xr-button xr-button-animate xr-menu-button">
+      <i data-feather="edit"></i>
+      <p>Заметки</p>
+    </button>
+    <button data-view="settings" class="xr-button xr-button-animate xr-menu-button">
+      <i data-feather="sliders"></i>
+      <p>Настройки</p>
+    </button>
+    <button data-view="update" class="xr-button xr-button-animate xr-menu-button">
+      <i data-feather="download"></i>
+      <p>Обновления</p>
+    </button>
+  </menu>
+
+  <root>
+    <view data-view="control">
+      <view-window data-title="Основное">
+        <control-loader>
+          <div class="xr-loading">
+            <span class="xr-loading-item"></span>
+            <span class="xr-loading-item"></span>
+            <span class="xr-loading-item"></span>
+          </div>
+          <p class="xr-label">Хост недоступен</p>
+        </control-loader>
+
+        <xr-row class="xr-host-input">
+          <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
+          <input class="xr-input control-host flex110" type="text" placeholder="Хост">
+        </xr-row>
+        <input type="text" readonly class="xr-input xr-w100" type="text" placeholder="LAPS">
+        <flex-row>
+          <button class="xr-button">
             <i data-feather="eye"></i>
-            <p>RDP</p>
+            <p>VNC</p>
           </button>
-          <flex-row>
-            <input type="text" class="xr-input" placeholder="Буква диска" list="disks" autocomplete="off" maxlength="1">
-            <datalist id="disks">
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="H">H</option>
-              <option value="A">A</option>
-              <option value="Z">Z</option>
-            </datalist>
-            <button class="xr-button">
-              <i data-feather="hard-drive"></i>
-              <p>Space Sniffer</p>
-            </button>
-          </flex-row>
-          <button class="xr-button xr-w100">
-            <i data-feather="tool"></i>
-            <p>Администрирование</p>
+          <button class="xr-button">
+            <i data-feather="terminal"></i>
+            <p>CMD</p>
           </button>
-        </view-window>
-
-        <view-window data-title="Дополнительно">
-          <flex-row>
-            <button class="xr-button">
-              <i data-feather="file-text"></i>
-              <p>Карточка</p>
-            </button>
-            <button class="xr-button">
-              <i data-feather="book"></i>
-              <p>Журнал заявок</p>
-            </button>
-          </flex-row>
-          <button class="xr-button xr-w100">
-            <i data-feather="printer"></i>
-            <p>Расположение принтеров</p>
+        </flex-row>
+        <button class="xr-button xr-w100">
+          <i data-feather="eye"></i>
+          <p>RDP</p>
+        </button>
+        <flex-row>
+          <input type="text" class="xr-input" placeholder="Буква диска" list="disks" autocomplete="off" maxlength="1">
+          <datalist id="disks">
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="H">H</option>
+            <option value="A">A</option>
+            <option value="Z">Z</option>
+          </datalist>
+          <button class="xr-button">
+            <i data-feather="hard-drive"></i>
+            <p>Space Sniffer</p>
           </button>
-        </view-window>
-      </view>
+        </flex-row>
+        <button class="xr-button xr-w100">
+          <i data-feather="tool"></i>
+          <p>Администрирование</p>
+        </button>
+      </view-window>
 
-      <view data-view="notepad">
-        <view-window data-title="Заметки">
-          <p>Здесь будет список заметок</p>
-        </view-window>
-      </view>
+      <view-window data-title="Дополнительно">
+        <flex-row>
+          <button class="xr-button">
+            <i data-feather="file-text"></i>
+            <p>Карточка</p>
+          </button>
+          <button class="xr-button">
+            <i data-feather="book"></i>
+            <p>Журнал заявок</p>
+          </button>
+        </flex-row>
+        <button class="xr-button xr-w100">
+          <i data-feather="printer"></i>
+          <p>Расположение принтеров</p>
+        </button>
+      </view-window>
+    </view>
 
-      <view data-view="settings">
-        <view-window data-title="Настройки">
-          <p>Здесь будут настройки</p>
-        </view-window>
-      </view>
+    <view data-view="notepad">
+      <view-window data-title="Заметки" class="view-100vp">
+        <notepad class="xr-notepad"></notepad>
+      </view-window>
+    </view>
 
-      <view data-view="update">
-        <view-window data-title="Обновления">
-          <p>Здесь будут обновления</p>
-        </view-window>
-      </view>
-    </root>
+    <view data-view="settings">
+      <view-window data-title="Настройки">
+        <p>Здесь будут настройки</p>
+      </view-window>
+    </view>
 
-    <script type="module" src="/src/renderer.js"></script>
-  </body>
+    <view data-view="update">
+      <view-window data-title="Обновления">
+        <p>Здесь будут обновления</p>
+      </view-window>
+    </view>
+  </root>
+
+  <script type="module" src="/src/renderer.js"></script>
+</body>
+
 </html>

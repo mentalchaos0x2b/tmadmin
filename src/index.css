@@ -223,11 +223,11 @@ flex-row > * {
   width: 1.25rem;
 }
 
-view:not([data-view="control"]) {
+/* view:not([data-view="control"]) {
   margin-top: 3rem;
-}
+} */
 
-@keyframes host-input {
+/* @keyframes host-input {
   from { top: 3rem; }
   to { top: 1rem; }
 }
@@ -251,4 +251,58 @@ view[data-view="control"]:is(.view-inactive) .xr-host-input{
   z-index: 9;
 
   animation: host-input .25s 1 forwards;
+} */
+
+.view-100vp {
+  height: calc(100vh - 2rem);
+}
+
+.view-of-visible {
+  overflow: visible;
+}
+
+notepad {
+  width: 100%;
+
+  border-radius: .25rem;
+
+  background: var(--xr-color-bg-d);
+
+  overflow: visible;
+}
+
+.ql-tooltip {
+  z-index: 999;
+}
+
+.ql-editor.ql-blank::before {
+  color: var(--xr-text-color-primary);
+}
+
+control-loader {
+  position: absolute;
+
+  top: 2.5rem;
+  left: 0;
+
+  z-index: 9;
+
+  width: 100%;
+  height: calc(100% - 2.5rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--xr-color-bg-e);
+
+  opacity: 0.8;
+
+  transition: opacity .25s ease-in-out;
+
+  border-radius: .25rem;
+}
+
+control-loader .xr-label {
+  color: var(--xr-color-accent);
 }

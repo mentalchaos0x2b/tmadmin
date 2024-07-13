@@ -26,16 +26,45 @@
  * ```
  */
 
+import { TMStorage } from './modules/tmstorage';
 import { TMJS } from './modules/tmjs';
-import { TMView } from './modules/tmview';
+import { TMView, ViewNotepad, ViewControl } from './modules/tmviews';
 
 import feather from 'feather-icons';
+
+import Quill from 'quill';
+import 'quill/dist/quill.bubble.css';
 
 import './xrkit.css'
 import './index.css';
 
-document.addEventListener('DOMContentLoaded', () => {
+const text = "123";
+
+TMJS.documentReady(() => {
+
+    // MAIN MODULES INIT
+
     feather.replace();
 
     TMView.initDocument();
+
+    const quill = new Quill(".xr-notepad", {
+        modules: {
+            toolbar: TMStorage.getNotepadToolbarOptions()
+        },
+        theme: "bubble",
+        placeholder: "Напишите текст",
+        bounds: ".xr-notepad"
+    });
+
+    // VIEWS INIT AND LOGIC
+
+    ViewNotepad.init(() => quill.root.innerHTML = TMStorage.get('notepad', ''), () => {
+        TMStorage.set('notepad', quill.getSemanticHTML());
+    });
+
+    ViewControl.init();
+
 });
+
+export {text};

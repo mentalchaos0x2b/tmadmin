@@ -6,6 +6,7 @@ module.exports = {
     asar: true,
     icon: 'src/assets/TMW',
     name: 'TMAdmin',
+    extraResource: "src/assets/modules",
   },
   rebuildConfig: {},
   makers: [
