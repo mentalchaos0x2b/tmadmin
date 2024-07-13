@@ -4,12 +4,16 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: 'src/assets/TMW',
+    name: 'TMAdmin',
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        icon: 'src/assets/TMW.png',
+      },
     },
     {
       name: '@electron-forge/maker-zip',
@@ -17,11 +21,15 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+      config: {
+        icon: 'src/assets/TMW.png',
+      },
     },
     {
       name: '@electron-forge/maker-rpm',
-      config: {},
+      config: {
+        icon: 'src/assets/TMW.png',
+      },
     },
   ],
   plugins: [

@@ -3,14 +3,14 @@ import { TMJS } from './tmjs';
 class TMView {
     static hideViews() {
         TMJS.select( 'view', (e) => {
-            e.style.display = 'none';
+            e.classList.add( 'view-inactive' );
         });
     }
 
     static setView( view ) {
         this.hideViews();
 
-        document.querySelector( 'view[data-view="' + view + '"]' ).style.display = 'flex';
+        document.querySelector( 'view[data-view="' + view + '"]' ).classList.remove( 'view-inactive' );
 
         this.setActiveMenuButton( '.xr-menu-button[data-view="' + view + '"]' );
     }

@@ -29,7 +29,7 @@
     <root>
       <view data-view="control">
         <view-window data-title="Основное">
-          <xr-row>
+          <xr-row class="xr-host-input">
             <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
             <input class="xr-input control-host flex110" type="text" placeholder="Хост">
           </xr-row>
@@ -48,9 +48,42 @@
             <i data-feather="eye"></i>
             <p>RDP</p>
           </button>
+          <flex-row>
+            <input type="text" class="xr-input" placeholder="Буква диска" list="disks" autocomplete="off" maxlength="1">
+            <datalist id="disks">
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="H">H</option>
+              <option value="A">A</option>
+              <option value="Z">Z</option>
+            </datalist>
+            <button class="xr-button">
+              <i data-feather="hard-drive"></i>
+              <p>Space Sniffer</p>
+            </button>
+          </flex-row>
           <button class="xr-button xr-w100">
             <i data-feather="tool"></i>
             <p>Администрирование</p>
+          </button>
+        </view-window>
+
+        <view-window data-title="Дополнительно">
+          <flex-row>
+            <button class="xr-button">
+              <i data-feather="file-text"></i>
+              <p>Карточка</p>
+            </button>
+            <button class="xr-button">
+              <i data-feather="book"></i>
+              <p>Журнал заявок</p>
+            </button>
+          </flex-row>
+          <button class="xr-button xr-w100">
+            <i data-feather="printer"></i>
+            <p>Расположение принтеров</p>
           </button>
         </view-window>
       </view>
