@@ -26,11 +26,16 @@
  * ```
  */
 
-import feather from 'feather-icons'
+import { TMJS } from './modules/tmjs';
+import { TMView } from './modules/tmview';
+
+import feather from 'feather-icons';
 
 import './xrkit.css'
 import './index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
     feather.replace();
+
+    TMView.initDocument();
 });

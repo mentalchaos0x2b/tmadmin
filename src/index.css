@@ -7,9 +7,9 @@ body {
   position: relative;
 }
 
-/* * {
-  outline: 1px solid red;
-} */
+* {
+  user-select: none;
+}
 
 body:has(menu:hover) menu .xr-button p {
   max-width: 5rem;
@@ -19,12 +19,13 @@ body:has(menu:hover) menu .xr-button p {
 
 body:has(menu:hover) menu {
   width: 10rem;
+  box-shadow: 12px 0 15px -4px rgba(0, 0, 0, 0.5);
 }
 
-body:has(menu:hover) root {
+/* body:has(menu:hover) root {
   width: calc(100% - 10.5rem);
   margin-left: 10.5rem;
-}
+} */
 
 menu {
   position: fixed;
@@ -44,7 +45,13 @@ menu {
 
   padding: .5rem;
 
-  transition: width .25s ease-in-out;
+  transition: width .25s ease-in-out, box-shadow .25s ease-in-out;
+
+  z-index: 10;
+
+  outline: .5rem solid var(--xr-color-bg-a);
+
+  
 }
 
 root {
@@ -52,7 +59,9 @@ root {
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .25rem;
 
   width: calc(100% - 5rem);
   height: 100%;
@@ -62,6 +71,11 @@ root {
   background: var(--xr-color-bg-b);
 
   transition: width .25s ease-in-out, margin-left .25s ease-in-out;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  border: .25rem solid var(--xr-color-bg-b);
 }
 
 .xr-menu-button {
@@ -76,7 +90,8 @@ root {
 }
 
 .xr-menu-button svg {
-  margin-left: .5rem;
+  margin-left: .6rem;
+  transition: color .1s ease-in-out;
 }
 
 .xr-menu-button p {
@@ -84,5 +99,85 @@ root {
   opacity: 0;
   margin-left: 0rem;
 
-  transition: max-width .25s ease-in-out, opacity .25s ease-in-out, margin-left .25s ease-in-out;
+  transition: max-width .25s ease-in-out, opacity .25s ease-in-out, margin-left .25s ease-in-out, color .1s ease-in-out;
+}
+
+.xr-menu-active * {
+  color: var(--xr-color-accent);
+}
+
+view {
+  width: 100%;
+
+  padding: .25rem;
+  border-radius: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+xr-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: .25rem;
+}
+
+.control-refresh {
+  width: 2rem;
+}
+
+view-window {
+  width: 100%;
+
+  background: var(--xr-color-bg-e);
+
+  padding: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .25rem;
+
+  border-radius: .25rem;
+
+  position: relative;
+
+  border-top: 1.5rem solid var(--xr-color-bg-d);
+}
+view-window::before {
+  content: attr(data-title);
+
+  position: absolute;
+
+  top: -1.3rem;
+  left: .5rem;
+}
+
+.flex110 {
+  flex: 1 1 0px;
+}
+
+flex-row {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: .25rem;
+}
+
+flex-row > * {
+  flex: 1 1 0px;
+}
+
+.xr-button svg, .xr-input svg {
+  width: 1.25rem;
 }

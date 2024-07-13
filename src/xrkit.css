@@ -5,6 +5,8 @@
     --xr-color-bg-b: rgb(33, 33, 33);
     --xr-color-bg-c: rgb(23, 23, 23);
     --xr-color-bg-d: rgb(13, 13, 13);
+    --xr-color-bg-e: rgb(3, 3, 3);
+    --xr-color-bg-f: rgb(0, 0, 0);
 
     --xr-color-accent: rgb(0, 255, 126);
     --xr-color-accent-alpha: rgba(0, 255, 128, 0.5);

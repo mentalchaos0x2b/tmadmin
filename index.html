@@ -8,22 +8,70 @@
   <body>
     
     <menu>
-      <button class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="hash"></i>
-         <p>Один</p>
+      <button data-view="control" class="xr-button xr-button-animate xr-menu-button xr-menu-active">
+         <i data-feather="box"></i>
+         <p>Управление</p>
       </button>
-      <button class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="code"></i>
-         <p>Два</p>
+      <button data-view="notepad" class="xr-button xr-button-animate xr-menu-button">
+         <i data-feather="edit"></i>
+         <p>Заметки</p>
       </button>
-      <button class="xr-button xr-button-animate xr-menu-button">
-         <i data-feather="menu"></i>
-         <p>Три</p>
+      <button data-view="settings" class="xr-button xr-button-animate xr-menu-button">
+         <i data-feather="sliders"></i>
+         <p>Настройки</p>
+      </button>
+      <button data-view="update" class="xr-button xr-button-animate xr-menu-button">
+         <i data-feather="download"></i>
+         <p>Обновления</p>
       </button>
     </menu>
 
     <root>
+      <view data-view="control">
+        <view-window data-title="Основное">
+          <xr-row>
+            <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
+            <input class="xr-input control-host flex110" type="text" placeholder="Хост">
+          </xr-row>
+          <input type="text" readonly class="xr-input xr-w100" type="text" placeholder="LAPS">
+          <flex-row>
+            <button class="xr-button">
+              <i data-feather="eye"></i>
+              <p>VNC</p>
+            </button>
+            <button class="xr-button">
+              <i data-feather="terminal"></i>
+              <p>CMD</p>
+            </button>
+          </flex-row>
+          <button class="xr-button xr-w100">
+            <i data-feather="eye"></i>
+            <p>RDP</p>
+          </button>
+          <button class="xr-button xr-w100">
+            <i data-feather="tool"></i>
+            <p>Администрирование</p>
+          </button>
+        </view-window>
+      </view>
 
+      <view data-view="notepad">
+        <view-window data-title="Заметки">
+          <p>Здесь будет список заметок</p>
+        </view-window>
+      </view>
+
+      <view data-view="settings">
+        <view-window data-title="Настройки">
+          <p>Здесь будут настройки</p>
+        </view-window>
+      </view>
+
+      <view data-view="update">
+        <view-window data-title="Обновления">
+          <p>Здесь будут обновления</p>
+        </view-window>
+      </view>
     </root>
 
     <script type="module" src="/src/renderer.js"></script>
