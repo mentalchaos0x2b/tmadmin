@@ -2,9 +2,9 @@ import { TMJS } from './tmjs';
 
 class TMLog {
     static type = {
-        bad: 'log-bad',
-        alert: 'log-alert',
-        ok: 'log-ok',
+        bad: 'bad',
+        alert: 'alert',
+        ok: 'ok',
         none: ''
     }
 
@@ -22,14 +22,24 @@ class TMLog {
         
         const element = TMJS.get(`[data-id="${id}"]`);
 
-        if(autoRemove) TMJS.timeout(() => this.removeItem(element), removeTime)
-
+        if(autoRemove) TMJS.timeout(() => {
+            this.removeItemId(id);
+        }, removeTime);
     }
 
     static removeItem(e) {
         e.style.animation = "log-hide .5s 1 forwards";
         TMJS.timeout(() => {
             e.remove();
+        }, 500);
+    }
+
+    static removeItemId(id) {
+        const element = TMJS.get(`[data-id="${id}"]`);
+
+        element.style.animation = "log-hide .5s 1 forwards";
+        TMJS.timeout(() => {
+            element.remove();
         }, 500);
     }
 }

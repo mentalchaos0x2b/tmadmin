@@ -3,6 +3,7 @@ import { TMStorage } from './tmstorage';
 import { TMExecute } from './tmexecute';
 
 import * as pkg from '../../package.json';
+import { TMLog } from './tmlog';
 
 class TMView {
     static env = {
@@ -37,7 +38,7 @@ class TMView {
 
     static initDocument() {
 
-        TMView.title( this.env.appVersion );
+        TMView.title( `${this.env.appVersion} [alpha-build | early-access]` );
 
         TMView.setView( 'control' );
 
@@ -200,15 +201,19 @@ class ViewControl {
     static async setButtonHandlers() {
         TMJS.listen('.module-vnc', 'click', (e) => {
             TMExecute.moduleSync(this.modules.vnc.file, this.getHostValue());
+            TMLog.show("none", "TightVNC Запущен", true, 3000);
         });
         TMJS.listen('.module-psexec', 'click', (e) => {
             TMExecute.start(this.modules.psexec.file, `\\\\${this.getHostValue()} cmd`);
+            TMLog.show("none", "PSExec Запущен", true, 3000);
         });
         TMJS.listen('.module-rdp', 'click', (e) => {
-            
+            TMExecute.executeAsync(`mstsc /v:${this.getHostValue()}`);
         });
-        TMJS.listen('.module-card', 'click', (e) => {
-            TMExecute.moduleSync(this.modules.card.file, this.getHostValue());
+        TMJS.listen('.module-card', 'click', async (e) => {
+            const output = TMExecute.moduleAsync(this.modules.card.file, `-find ${this.getHostValue()}`);
+
+            TMLog.show("none", JSON.stringify(output), true, 3000);
         });
         TMJS.listen('.module-space-sniffer', 'click', (e) => {
             TMExecute.moduleSync(this.modules.spaceSniffer.file, this.getHostValue());
