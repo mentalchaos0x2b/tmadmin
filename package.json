@@ -32,7 +32,12 @@
   },
   "license": "MIT",
   "dependencies": {
+    "electron-debug": "^4.0.0",
+    "electron-is-dev": "^3.0.1",
+    "electron-is-packaged": "^1.0.2",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-util": "^0.18.1",
+    "execa": "^9.3.0",
     "quill": "^2.0.2",
     "util": "^0.12.5"
   }

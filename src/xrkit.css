@@ -167,7 +167,7 @@ xr-container {
     background: var(--xr-color-bg-d);
 }
 
-.xr-input:disabled, .default-button:disabled {
+.xr-input:disabled, .xr-button:disabled {
     background: var(--xr-color-bg-d);
     color: var(--text-color-primary);
 

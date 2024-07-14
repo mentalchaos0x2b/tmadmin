@@ -5,9 +5,24 @@
   <meta charset="UTF-8" />
   <link rel="shortcut icon" href="src/assets/TMW.png" type="image/x-icon">
   <title>TMAdmin</title>
+
+  <script>
+    const removeItem = (e) => {
+      e.style.animation = "log-hide .25s 1 forwards";
+      setTimeout(() => {
+        e.remove();
+      }, 500);
+    }
+  </script>
 </head>
 
 <body>
+
+  <log>
+    <!-- <log-message class="log-bad">
+      <p>Hello World!</p>
+    </log-message> -->
+  </log>
 
   <menu>
     <button data-view="control" class="xr-button xr-button-animate xr-menu-button xr-menu-active">
@@ -26,6 +41,8 @@
       <i data-feather="download"></i>
       <p>Обновления</p>
     </button>
+
+    <logo></logo>
   </menu>
 
   <root>
@@ -44,18 +61,18 @@
           <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
           <input class="xr-input control-host flex110" type="text" placeholder="Хост">
         </xr-row>
-        <input type="text" readonly class="xr-input xr-w100" type="text" placeholder="LAPS">
+        <input type="text" readonly class="xr-input xr-w100 control-laps" type="text" placeholder="LAPS">
         <flex-row>
-          <button class="xr-button">
+          <button class="xr-button module-vnc">
             <i data-feather="eye"></i>
             <p>VNC</p>
           </button>
-          <button class="xr-button">
+          <button class="xr-button module-psexec">
             <i data-feather="terminal"></i>
             <p>CMD</p>
           </button>
         </flex-row>
-        <button class="xr-button xr-w100">
+        <button class="xr-button xr-w100 module-rdp">
           <i data-feather="eye"></i>
           <p>RDP</p>
         </button>
@@ -70,7 +87,7 @@
             <option value="A">A</option>
             <option value="Z">Z</option>
           </datalist>
-          <button class="xr-button">
+          <button class="xr-button module-space-sniffer">
             <i data-feather="hard-drive"></i>
             <p>Space Sniffer</p>
           </button>
@@ -83,16 +100,16 @@
 
       <view-window data-title="Дополнительно">
         <flex-row>
-          <button class="xr-button">
+          <button class="xr-button module-card">
             <i data-feather="file-text"></i>
             <p>Карточка</p>
           </button>
-          <button class="xr-button">
+          <button class="xr-button module-journal">
             <i data-feather="book"></i>
             <p>Журнал заявок</p>
           </button>
         </flex-row>
-        <button class="xr-button xr-w100">
+        <button class="xr-button xr-w100 module-printers">
           <i data-feather="printer"></i>
           <p>Расположение принтеров</p>
         </button>
@@ -107,13 +124,13 @@
 
     <view data-view="settings">
       <view-window data-title="Настройки">
-        <p>Здесь будут настройки</p>
+        <p>Будет доступно в полной версии</p>
       </view-window>
     </view>
 
     <view data-view="update">
       <view-window data-title="Обновления">
-        <p>Здесь будут обновления</p>
+        <p>Будет доступно в полной версии</p>
       </view-window>
     </view>
   </root>

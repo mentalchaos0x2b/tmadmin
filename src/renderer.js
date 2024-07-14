@@ -26,6 +26,8 @@
  * ```
  */
 
+import { TMLog } from './modules/tmlog';
+
 import { TMStorage } from './modules/tmstorage';
 import { TMJS } from './modules/tmjs';
 import { TMView, ViewNotepad, ViewControl } from './modules/tmviews';

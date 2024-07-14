@@ -306,3 +306,152 @@ control-loader {
 control-loader .xr-label {
   color: var(--xr-color-accent);
 }
+
+log {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  flex-direction: column;
+  gap: .25rem;
+
+  padding: 1rem;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+@keyframes log-entry {
+  from {
+      opacity: 0;
+      transform: translateY(-1rem);
+  }
+
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes log-hide {
+  from {
+      opacity: 1;
+      transform: translateY(0);
+  }
+
+  to {
+      opacity: 0;
+      transform: translateY(1rem);
+  }
+}
+
+log-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 30rem;
+  max-height: 30rem;
+
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+  backdrop-filter: blur(5px);
+
+  padding: 1rem;
+
+  border-radius: .25rem;
+
+  animation: log-entry .5s 1 forwards;
+
+  cursor: pointer;
+
+  pointer-events: all;
+
+  user-select: none;
+
+  position: relative;
+}
+
+log-message::after {
+  content: '';
+
+  font-weight: bold;
+
+  position: absolute;
+  top: -.5rem;
+  right: -.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  background: var(--xr-text-color-secondary);
+  box-shadow: 0 0 5px var(--xr-text-color-secondary);
+
+  background-image: url('./assets/x.svg');
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  background-position: center;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  transition: opacity .1s ease-in-out;
+}
+
+log-message:hover::after {
+  opacity: 1;
+}
+
+.log-bad {
+  background: rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.log-alert {
+  background: rgba(255, 213, 98, 0.5);
+  box-shadow: 0 0 5px rgba(255, 213, 98, 0.5);
+}
+
+.log-alert * {
+  color: var(--xr-text-color-secondary);
+}
+
+.log-ok {
+  background: rgba(0, 255, 128, 0.5);
+  box-shadow: 0 0 5px rgba(0, 255, 128, 0.5);
+}
+
+.log-ok * {
+  color: var(--xr-text-color-secondary);
+}
+
+logo {
+  width: calc(100% - 1rem);
+  height: 3.5rem;
+
+  border-radius: .25rem;
+
+  background-image: url(./assets/TMW.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  position: absolute;
+
+  left: .5rem;
+  bottom: .5rem;
+}

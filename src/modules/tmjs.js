@@ -14,14 +14,21 @@ class TMJS {
             callback(element);
         }
     }
+
+    static get(object) {
+        return document.querySelector(object);
+    }
+
     static selectOne(object, callback) {
         const element = document.querySelector(object);
 
         callback(element);
     }
 
-    static value(object) {
-        return document.querySelector(object).value;
+    static value(object, value = null) {
+        if(value === null) return document.querySelector(object).value;
+
+        document.querySelector(object).value = value;
     }
 
     static documentReady(callback) {
@@ -35,6 +42,12 @@ class TMJS {
         setInterval(() => {
            callback(); 
         }, interval);
+    }
+
+    static timeout(callback, timeout) {
+        setTimeout(() => {
+           callback(); 
+        }, timeout);
     }
 
     static animateHide(element, opacity = null) {
@@ -71,6 +84,22 @@ class TMJS {
     static html(object, html) {
         const element = document.querySelector(object);
         element.innerHTML = html;
+    }
+
+    static append(object, html) {
+        const element = document.querySelector(object);
+        element.innerHTML += html;
+        return element.childNodes;
+    }
+
+    static create(element) {
+        return document.createElement(element);
+    }
+
+    static style(object, style, value = null) {
+        const element = document.querySelector(object);
+        if(value === null) return element.style[style];
+        element.style[style] = value;
     }
 }
 
