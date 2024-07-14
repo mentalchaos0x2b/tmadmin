@@ -211,12 +211,17 @@ class ViewControl {
             TMExecute.executeAsync(`mstsc /v:${this.getHostValue()}`);
         });
         TMJS.listen('.module-card', 'click', async (e) => {
-            const output = TMExecute.moduleAsync(this.modules.card.file, `-find ${this.getHostValue()}`);
+            const host = this.getHostValue();
 
-            TMLog.show("none", JSON.stringify(output), true, 3000);
+            const output = TMExecute.moduleAsync(this.modules.card.file, `-find ${host}`);
+
+            TMLog.show("none", `Поиск карточки ${host}`, true, 3000);
         });
-        TMJS.listen('.module-space-sniffer', 'click', (e) => {
-            TMExecute.moduleSync(this.modules.spaceSniffer.file, this.getHostValue());
+        TMJS.listen('.module-space-sniffer', 'click', async (e) => {
+            TMLog.show("none", `Запуск сканирования \\\\${this.getHostValue()}\\${TMJS.value('.module-space-sniffer-disk') || 'c'}$`, true, 3000);
+            const res = await TMExecute.moduleAsync(this.modules.spaceSniffer.file, `scan \\\\${this.getHostValue()}\\${TMJS.value('.module-space-sniffer-disk') || "c"}$`);
+            console.log(res);
+            
         });
         TMJS.listen('.module-journal', 'click', (e) => {
             
