@@ -5,6 +5,8 @@ import { TMExecute } from './tmexecute';
 import * as pkg from '../../package.json';
 import { TMLog } from './tmlog';
 
+import MarkdownIt, * as md from 'markdown-it';
+
 class TMView {
     static env = {
         appName: "TMAdmin",
@@ -55,6 +57,9 @@ class TMView {
 
     static setBuild(build) {
         TMJS.get('build-label').innerHTML = `pre-${build}`;
+        TMJS.listen('build', 'click', (e) => {
+            window.backend.open(`https://github.com/nxghtmxre0xf/tmadmin/releases/tag/v${build}`)
+        });
     }
 }
 
@@ -130,14 +135,6 @@ class ViewControl {
         TMJS.selectOne('control-loader', (element) => {
             TMJS.animateHide(element);
         });
-    }
-
-    static disableInput() {
-
-    }
-
-    static enableInput() {
-
     }
 
     static setInputEvent() {
@@ -294,4 +291,24 @@ class ViewSettings {
     }
 }
 
-export { TMView, ViewNotepad, ViewControl, ViewSettings };
+class ViewUpdate {
+    static url = {
+        releases: 'https://api.github.com/repos/nxghtmxre0xf/tmadmin/releases'
+    }
+
+    static async init() {
+        const md = new MarkdownIt();
+
+        const res = await this.getRelease();
+        TMJS.get('release').innerHTML = md.render(res.body);
+    }
+
+    static async getRelease() {
+        const response = await fetch(this.url.releases);
+        const data = await response.json();
+        console.log(data[0]);
+        return data[0];
+    }
+}
+
+export { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate };

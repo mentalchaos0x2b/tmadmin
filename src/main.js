@@ -14,9 +14,9 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 600,
+    width: 700,
     height: 450,
-    minWidth: 600,
+    minWidth: 700,
     minHeight: 450,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),

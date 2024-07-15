@@ -30,7 +30,7 @@ import { TMLog } from './modules/tmlog';
 
 import { TMStorage } from './modules/tmstorage';
 import { TMJS } from './modules/tmjs';
-import { TMView, ViewNotepad, ViewControl, ViewSettings } from './modules/tmviews';
+import { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate } from './modules/tmviews';
 
 import feather from 'feather-icons';
 
@@ -42,7 +42,7 @@ import 'quill/dist/quill.bubble.css';
 import './xrkit.css'
 import './index.css';
 
-TMJS.documentReady(() => {
+TMJS.documentReady(async () => {
 
     // MAIN MODULES INIT
 
@@ -70,5 +70,7 @@ TMJS.documentReady(() => {
     ViewControl.init();
 
     ViewSettings.init();
+
+    ViewUpdate.init();
 
 });
