@@ -45,7 +45,7 @@ module.exports = {
           name: 'tmadmin'
         },
         prerelease: false,
-        draft: true,
+        draft: false,
         authToken: process.env.GITHUB_TOKEN
       }
     }
