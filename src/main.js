@@ -1,5 +1,8 @@
 const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron');
+const { log } = require('node:console');
 const path = require('node:path');
+
+require('dotenv').config();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -31,7 +34,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -39,6 +42,11 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
+
+  ipcMain.handle('vnc_password', async () => {
+    
+    return process.env.vnc_password || "";
+  });
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.

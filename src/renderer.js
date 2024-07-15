@@ -40,8 +40,6 @@ import 'quill/dist/quill.bubble.css';
 import './xrkit.css'
 import './index.css';
 
-const text = "123";
-
 TMJS.documentReady(() => {
 
     // MAIN MODULES INIT
@@ -68,5 +66,3 @@ TMJS.documentReady(() => {
     ViewControl.init();
 
 });
-
-export {text};

@@ -9,6 +9,7 @@ import path from 'node:path';
 import { isPackaged } from 'electron-is-packaged';
 
 const execAsync = promisify(exec);
+const invoke = promisify(ipcRenderer.invoke);
 
 const dirs = {
     dev: {
@@ -61,4 +62,8 @@ contextBridge.exposeInMainWorld('backend', {
     open: async (url) => shell.openExternal(url),
     directory: () => dir.src,
     modules: () => dir.modules,
+    vncPassword: async () => { 
+        const res = await ipcRenderer.invoke('vnc_password');
+        return res;
+    }
 });

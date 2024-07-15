@@ -201,7 +201,8 @@ class ViewControl {
     static async setButtonHandlers() {
         TMJS.listen('.module-vnc', 'click', async (e) => {
             TMLog.show("none", "TightVNC: Запуск", true, 3000, 'external-link');
-            await TMExecute.moduleAsync(this.modules.vnc.file, this.getHostValue());
+            const vncPassword = await window.backend.vncPassword();
+            await TMExecute.moduleAsync(this.modules.vnc.file, `${this.getHostValue()} -PASSWORD=${vncPassword}`);
             TMLog.show("none", "TightVNC: Работа прекращена", true, 3000, 'external-link');
         });
         TMJS.listen('.module-psexec', 'click', (e) => {
