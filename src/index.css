@@ -416,6 +416,11 @@ log-message:hover::after {
   opacity: 1;
 }
 
+log-message svg {
+  transform: scale(0.8);
+  margin-right: .25rem;
+}
+
 .log-bad {
   background: rgba(255, 0, 0, 0.5);
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);

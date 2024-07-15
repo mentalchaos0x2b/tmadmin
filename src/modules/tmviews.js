@@ -199,35 +199,46 @@ class ViewControl {
     }
 
     static async setButtonHandlers() {
-        TMJS.listen('.module-vnc', 'click', (e) => {
-            TMExecute.moduleSync(this.modules.vnc.file, this.getHostValue());
-            TMLog.show("none", "TightVNC Запущен", true, 3000);
+        TMJS.listen('.module-vnc', 'click', async (e) => {
+            TMLog.show("none", "TightVNC: Запуск", true, 3000, 'external-link');
+            await TMExecute.moduleAsync(this.modules.vnc.file, this.getHostValue());
+            TMLog.show("none", "TightVNC: Работа прекращена", true, 3000, 'external-link');
         });
         TMJS.listen('.module-psexec', 'click', (e) => {
+            TMLog.show("none", "PSExec: Запуск", true, 3000, 'external-link');
             TMExecute.start(this.modules.psexec.file, `\\\\${this.getHostValue()} cmd`);
-            TMLog.show("none", "PSExec Запущен", true, 3000);
         });
         TMJS.listen('.module-rdp', 'click', (e) => {
+            TMLog.show("none", "RDP: Запуск", true, 3000, 'external-link');
             TMExecute.executeAsync(`mstsc /v:${this.getHostValue()}`);
         });
         TMJS.listen('.module-card', 'click', async (e) => {
             const host = this.getHostValue();
 
-            const output = TMExecute.moduleAsync(this.modules.card.file, `-find ${host}`);
+            TMLog.show("none", `Поиск карточки ${host}`, true, 3000, 'search');
 
-            TMLog.show("none", `Поиск карточки ${host}`, true, 3000);
+            const output = await TMExecute.moduleAsync(this.modules.card.file, `-find ${host}`);
+
+            console.log(output);
+
+            if ( output.stdout.toLowerCase().startsWith("error") ) return TMLog.show("bad", `Ошибка: ${output.stdout.substring(7, output.stdout.length)}`, true, 3000, 'alert-triangle');
+
+            TMLog.show("none", `Карточка найдена`, true, 3000, 'check');
         });
         TMJS.listen('.module-space-sniffer', 'click', async (e) => {
-            TMLog.show("none", `Запуск сканирования \\\\${this.getHostValue()}\\${TMJS.value('.module-space-sniffer-disk') || 'c'}$`, true, 3000);
+            TMLog.show("none", `Space Sniffer: Запуск`, true, 3000, 'external-link');
             const res = await TMExecute.moduleAsync(this.modules.spaceSniffer.file, `scan \\\\${this.getHostValue()}\\${TMJS.value('.module-space-sniffer-disk') || "c"}$`);
-            console.log(res);
-            
+            TMLog.show("none", `Space Sniffer: Работа прекращена`, true, 3000, 'external-link');
         });
         TMJS.listen('.module-journal', 'click', (e) => {
             
         });
+        TMJS.listen('.module-compmgmt', 'click', (e) => {
+            TMLog.show("none", `Computer Management: Запуск`, true, 3000, 'external-link');
+            TMExecute.executeAsync("compmgmt", `/COMPUTER=${this.getHostValue()}`);
+        });
         TMJS.listen('.module-printers', 'click', (e) => {
-            
+            TMExecute.moduleSync(this.modules.printers.file);
         });
     }
 }

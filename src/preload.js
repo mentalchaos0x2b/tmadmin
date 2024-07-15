@@ -30,8 +30,8 @@ contextBridge.exposeInMainWorld('backend', {
     run: (command) => {
         exec(command);
     },
-    execute: async (command) => {
-        const {err, stdout, stderr} = await execAsync(command);
+    execute: async (command, args = "") => {
+        const {err, stdout, stderr} = await execAsync(`${command} ${args}`);
         return {
             err,
             stdout,
@@ -58,6 +58,7 @@ contextBridge.exposeInMainWorld('backend', {
             stderr
         }
     },
+    open: async (url) => shell.openExternal(url),
     directory: () => dir.src,
     modules: () => dir.modules,
 });

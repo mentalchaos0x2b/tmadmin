@@ -10,8 +10,8 @@ class TMExecute {
         window.backend.run(command);
     }
 
-    static async executeAsync(command) {
-        const result = window.backend.execute(command);
+    static async executeAsync(command, args = "") {
+        const result = window.backend.execute(command, args);
         return result;
     }
 
