@@ -30,9 +30,11 @@ import { TMLog } from './modules/tmlog';
 
 import { TMStorage } from './modules/tmstorage';
 import { TMJS } from './modules/tmjs';
-import { TMView, ViewNotepad, ViewControl } from './modules/tmviews';
+import { TMView, ViewNotepad, ViewControl, ViewSettings } from './modules/tmviews';
 
 import feather from 'feather-icons';
+
+import * as pkg from '../package.json';
 
 import Quill from 'quill';
 import 'quill/dist/quill.bubble.css';
@@ -47,6 +49,8 @@ TMJS.documentReady(() => {
     feather.replace();
 
     TMView.initDocument();
+
+    TMView.setBuild(pkg.version);
 
     const quill = new Quill(".xr-notepad", {
         modules: {
@@ -64,5 +68,7 @@ TMJS.documentReady(() => {
     });
 
     ViewControl.init();
+
+    ViewSettings.init();
 
 });

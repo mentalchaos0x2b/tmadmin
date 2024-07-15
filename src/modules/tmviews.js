@@ -52,6 +52,10 @@ class TMView {
         if(subtitle === null) document.title = `${this.env.appName} ${version}`;
         else document.title = `${this.env.appName} ${version} - ${subtitle}`;
     }
+
+    static setBuild(build) {
+        TMJS.get('build-label').innerHTML = `pre-${build}`;
+    }
 }
 
 class ViewNotepad  {
@@ -201,8 +205,13 @@ class ViewControl {
     static async setButtonHandlers() {
         TMJS.listen('.module-vnc', 'click', async (e) => {
             TMLog.show("none", "TightVNC: Запуск", true, 3000, 'external-link');
-            const vncPassword = await window.backend.vncPassword();
-            await TMExecute.moduleAsync(this.modules.vnc.file, `${this.getHostValue()} -PASSWORD=${vncPassword}`);
+            if(ViewSettings.props.vncAutoPassword.storage.get()) {
+                const vncPassword = await window.backend.vncPassword();
+                await TMExecute.moduleAsync(this.modules.vnc.file, `${this.getHostValue()} -PASSWORD=${vncPassword}`);
+            }
+            else {
+                await TMExecute.moduleAsync(this.modules.vnc.file, this.getHostValue());
+            }
             TMLog.show("none", "TightVNC: Работа прекращена", true, 3000, 'external-link');
         });
         TMJS.listen('.module-psexec', 'click', (e) => {
@@ -244,4 +253,45 @@ class ViewControl {
     }
 }
 
-export { TMView, ViewNotepad, ViewControl };
+class ViewSettings {
+    static props = {
+        vncAutoPassword: {
+            input: '[data-setting="vnc-auto-password"]',
+            storage: {
+                get: () => eval(TMStorage.get('vnc-auto-password', true)),
+                set: (value) => TMStorage.set('vnc-auto-password', value)
+            },
+            display_name: 'vnc-auto-password'
+        },
+        reset: {
+            input: '[data-setting="reset"]',
+            action: () => TMStorage.clear()
+        }
+    }
+
+    static init() {
+        this.toggleInit();
+        this.setToggleHandlers();
+    }
+
+    static toggleInit() {
+        TMJS.get(this.props.vncAutoPassword.input).checked = this.props.vncAutoPassword.storage.get();
+    }
+
+    static setToggleHandlers() {
+        TMJS.listen(this.props.vncAutoPassword.input, 'change', (e) => {
+            const checked = e.currentTarget.checked;
+            this.props.vncAutoPassword.storage.set(checked);
+            const num = checked ? 1 : 0;
+            TMLog.show('none', `Настройка изменена: ${this.props.vncAutoPassword.display_name} = ${num}`, true, 3000, 'settings');
+        });
+        TMJS.listen(this.props.reset.input, 'click', (e) => {
+            TMLog.show('none', `Настройки успешно сброшены`, true, 3000, 'settings');
+            this.props.reset.action();
+
+            this.toggleInit();
+        });
+    }
+}
+
+export { TMView, ViewNotepad, ViewControl, ViewSettings };

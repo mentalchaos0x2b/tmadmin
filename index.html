@@ -18,6 +18,15 @@
 
 <body>
 
+  <build>
+    <build-label>
+      -
+    </build-label>
+    <build-type>
+      alpha-ea
+    </build-type>
+  </build>
+
   <log>
     <!-- <log-message class="log-bad">
       <p>Hello World!</p>
@@ -77,7 +86,8 @@
           <p>RDP</p>
         </button>
         <flex-row>
-          <input type="text" class="xr-input module-space-sniffer-disk" placeholder="Буква диска" list="disks" autocomplete="off" maxlength="1">
+          <input type="text" class="xr-input module-space-sniffer-disk" placeholder="Буква диска" list="disks"
+            autocomplete="off" maxlength="1">
           <datalist id="disks">
             <option value="C">C</option>
             <option value="D">D</option>
@@ -123,8 +133,22 @@
     </view>
 
     <view data-view="settings">
-      <view-window data-title="Настройки">
-        <p>Будет доступно после альфа-теста в версии (2.2.0)</p>
+      <view-window data-title="Управление">
+        <!-- <p>Будет доступно после альфа-теста в версии (2.2.0)</p> -->
+        <setting>
+          <i data-feather="settings"></i>
+          <label class="toggler-wrapper style-1">
+            <input type="checkbox" data-setting="vnc-auto-password">
+            <div class="toggler-slider">
+              <div class="toggler-knob"></div>
+            </div>
+          </label>
+          <p>Автоматический ввод пароля TightVNC</p>
+        </setting>
+        <button class="xr-button xr-w100" data-setting="reset">
+          <i data-feather="trash"></i>
+          <p>Сбросить настройки</p>
+        </button>
       </view-window>
     </view>
 
