@@ -20,6 +20,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "electron": "31.2.0",
     "feather-icons": "^4.29.2",
@@ -32,6 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "electron-debug": "^4.0.0",
     "electron-is-dev": "^3.0.1",
     "electron-is-packaged": "^1.0.2",

@@ -1,10 +1,12 @@
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
+require('dotenv').config();
+
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: 'src/assets/TMW',
+    icon: 'src/assets/TMW.ico',
     name: 'TMAdmin',
     extraResource: "src/assets/modules",
   },
@@ -13,7 +15,8 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        icon: 'src/assets/TMW.png',
+        setupIcon: 'src/assets/TMW.ico',
+        icon: 'src/assets/TMW.ico'
       },
     },
     {
@@ -23,15 +26,29 @@ module.exports = {
     {
       name: '@electron-forge/maker-deb',
       config: {
-        icon: 'src/assets/TMW.png',
+        icon: 'src/assets/TMW.ico'
       },
     },
     {
       name: '@electron-forge/maker-rpm',
       config: {
-        icon: 'src/assets/TMW.png',
+        icon: 'src/assets/TMW.ico'
       },
     },
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'nxghtmxre0xf',
+          name: 'tmadmin'
+        },
+        prerelease: false,
+        draft: true,
+        authToken: process.env.GITHUB_TOKEN
+      }
+    }
   ],
   plugins: [
     {
@@ -58,6 +75,7 @@ module.exports = {
         ],
       },
     },
+    
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
     new FusesPlugin({
