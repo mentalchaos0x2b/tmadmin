@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron');
 const { log } = require('node:console');
 const path = require('node:path');
 
+const isPackaged = require('electron-is-packaged');
+
 require('dotenv').config();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -34,7 +36,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if(!isPackaged.isPackaged) mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

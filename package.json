@@ -41,6 +41,7 @@
     "electron-util": "^0.18.1",
     "execa": "^9.3.0",
     "quill": "^2.0.2",
+    "update-electron-app": "^3.0.0",
     "util": "^0.12.5"
   }
 }
