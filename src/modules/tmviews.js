@@ -322,9 +322,14 @@ class ViewUpdate {
             return;
         }
 
-        const md = new MarkdownIt();
+        try {
+            const md = new MarkdownIt();
 
-        TMJS.get('release').innerHTML = md.render(res.body);
+            TMJS.get('release').innerHTML = md.render(res.body);
+        }
+        catch {
+            TMJS.get('release').innerHTML = "Текс обновления не найден";
+        }
 
         TMJS.get('[data-view="current-version"]').innerHTML = `v${pkg.version}`;
         TMJS.get('[data-view="git-version"]').innerHTML = res.tag_name;
