@@ -328,7 +328,7 @@ class ViewUpdate {
             TMJS.get('release').innerHTML = md.render(res.body);
         }
         catch {
-            TMJS.get('release').innerHTML = "Текс обновления не найден";
+            TMJS.get('release').innerHTML = "Текст обновления не найден";
         }
 
         TMJS.get('[data-view="current-version"]').innerHTML = `v${pkg.version}`;
