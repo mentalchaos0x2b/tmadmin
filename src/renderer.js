@@ -71,6 +71,9 @@ TMJS.documentReady(async () => {
 
     ViewSettings.init();
 
-    ViewUpdate.init();
-
+    TMJS.eventObj(document, 'view-change', (e) => {
+        if(e.detail.view == 'update') {
+            ViewUpdate.init();
+        }
+    });      
 });

@@ -560,6 +560,8 @@ build {
   backdrop-filter: blur(5px);
 
   cursor: pointer;
+
+  display: none;
 }
 
 build:hover {
@@ -608,4 +610,65 @@ release {
   gap: .25rem;
 
   padding: .5rem;
+}
+
+.span-accent {
+  color: var(--xr-color-accent);
+}
+
+[data-view="current-version"] {
+  margin-left: .25rem;
+}
+
+.xr-label-update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .05rem;
+}
+
+.xr-label-update svg {
+  transform: scale(0.8);
+}
+
+.link * {
+  color: var(--xr-color-accent);
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: .25rem;
+}
+
+.github-link img {
+  width: 1rem;
+  aspect-ratio: 1 / 1;
+}
+
+update-loader {
+  position: absolute;
+
+  z-index: 1;
+
+  background: var(--xr-color-bg-d);
+
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+
+  border-radius: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .5rem;
 }

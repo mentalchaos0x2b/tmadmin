@@ -155,10 +155,41 @@
     </view>
 
     <view data-view="update">
-      <view-window data-title="Обновления">
+      <update-loader>
+        <div class="xr-loading">
+          <span class="xr-loading-item"></span>
+          <span class="xr-loading-item"></span>
+          <span class="xr-loading-item"></span>
+        </div>
+        <p class="span-accent">Запрос к серверу обновления</p>
+      </update-loader>
+
+      <view-window data-title="Контроль версий">
+        <span onclick="window.backend.open('https:\/\/github.com/nxghtmxre0xf/tmadmin')" class="link github-link">
+          <img src="/src/assets/github-mark-white.svg" alt="">
+          <p>GitHub</p>
+        </span>
+        <small class="xr-label-update">Информация: <span class="span-accent" data-view="current-version">0.0.0</span> <i data-feather="git-commit"></i> <span class="span-accent" data-view="git-version">0.0.0</span></small>
+        <sup data-view="update-info">Обновление не требуется</sup>
+      </view-window>
+
+      <view-window data-title="Последние изменения">
         <release>
-          
+
         </release>
+      </view-window>
+
+      <view-window data-view="update-window" data-title="Найдено обновление!">
+        <button data-action="download-update" class="xr-button xr-w100">
+          <i data-feather="upload"></i>
+          <p>Скачать обновление</p>
+        </button>
+      </view-window>
+      <view-window data-view="check-update-window" data-title="Проверка">
+        <button data-action="check-update" class="xr-button xr-w100">
+          <i data-feather="github"></i>
+          <p>Проверить наличие обновления</p>
+        </button>
       </view-window>
     </view>
   </root>

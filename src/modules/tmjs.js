@@ -7,6 +7,15 @@ class TMJS {
         }
     }
 
+    static event(object, event, callback) {
+        const element = document.querySelector(object);
+
+        element.addEventListener(event, (e) => { callback(e); });
+    }
+    static eventObj(object, event, callback) {
+        object.addEventListener(event, (e) => { callback(e); });
+    }
+
     static select(object, callback) {
         const elements = document.querySelectorAll(object);
 

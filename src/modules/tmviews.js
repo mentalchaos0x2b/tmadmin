@@ -7,6 +7,8 @@ import { TMLog } from './tmlog';
 
 import MarkdownIt, * as md from 'markdown-it';
 
+const global = {  }
+
 class TMView {
     static env = {
         appName: "TMAdmin",
@@ -25,6 +27,10 @@ class TMView {
         document.querySelector( 'view[data-view="' + view + '"]' ).style.display = "flex";
 
         this.setActiveMenuButton( '.xr-menu-button[data-view="' + view + '"]' );
+
+        const viewEvent = new CustomEvent('view-change', { detail: { view: view} });
+
+        document.dispatchEvent( viewEvent );
     }
 
     static setActiveMenuButton(element) {
@@ -40,7 +46,7 @@ class TMView {
 
     static initDocument() {
 
-        TMView.title( `${this.env.appVersion} [alpha-build | early-access]` );
+        TMView.title( `${this.env.appVersion}` );
 
         TMView.setView( 'control' );
 
@@ -291,23 +297,117 @@ class ViewSettings {
     }
 }
 
+global.viewUpdate = { }
+global.viewUpdate.first = true;
+
 class ViewUpdate {
     static url = {
-        releases: 'https://api.github.com/repos/nxghtmxre0xf/tmadmin/releases'
+        apiReleases: 'https://api.github.com/repos/nxghtmxre0xf/tmadmin/releases',
+        releases: 'https://github.com/nxghtmxre0xf/tmadmin/releases'
     }
 
-    static async init() {
+    static async init(fromButton = false) {
+
+        this.unsetError();
+
+        this.showLoader();
+
+        let res;
+
+        try {
+            res = await this.getRelease();
+        }
+        catch {
+            this.setError();
+            return;
+        }
+
         const md = new MarkdownIt();
 
-        const res = await this.getRelease();
         TMJS.get('release').innerHTML = md.render(res.body);
+
+        TMJS.get('[data-view="current-version"]').innerHTML = `v${pkg.version}`;
+        TMJS.get('[data-view="git-version"]').innerHTML = res.tag_name;
+
+        this.versionCompare(pkg.version, res.tag_name, fromButton);
+
+        if( global.viewUpdate.first ) {
+            this.setButtonHandler(res.assets[2].browser_download_url);
+            global.viewUpdate.first = false;
+        }
+
+        this.hideLoader();
+    }
+
+    static versionCompare(current, git, fromButton = false) {
+        if(this.convertVersion(git) > this.convertVersion(current)) {
+            if(global.viewUpdate.first || fromButton) TMLog.show('none', `Доступна новая версия: ${git}`, true, 3000, 'upload');
+
+            TMJS.get('[data-view="update-info"]').innerHTML = `Доступна новая версия: ${git}`;
+
+            TMJS.get('[data-view="update-window"]').style.display = 'flex';
+            TMJS.get('[data-view="check-update-window"]').style.display = 'none';
+        }
+        else {
+            TMJS.get('[data-view="update-info"]').innerHTML = `Обновление не требуется`;
+            TMJS.get('[data-view="update-window"]').style.display = 'none';
+            TMJS.get('[data-view="check-update-window"]').style.display = 'flex';
+
+            if(global.viewUpdate.first || fromButton) TMLog.show('none', `Обновление не найдено`, true, 3000, 'check');
+        }
+    }
+
+    static showLoader() {
+        TMJS.selectOne('update-loader', (element) => {
+            TMJS.animateShow(element, 1);
+        });
+    }
+
+    static hideLoader() {
+        TMJS.selectOne('update-loader', (element) => {
+            TMJS.animateHide(element, 0);
+        });
+    }
+
+    static setError() {
+        TMJS.get('update-loader').innerHTML = `<p class="span-accent">Ошибка при запросе к серверу обновления</p>`;
+        this.showLoader();
+    }
+
+    static unsetError() {
+        const html = `<div class="xr-loading"><span class="xr-loading-item"></span><span class="xr-loading-item"></span><span class="xr-loading-item"></span></div><p class="span-accent">Запрос к серверу обновления</p>`
+        TMJS.get('update-loader').innerHTML = html;
+        this.showLoader();
+    }
+
+    static convertVersion(version) {
+        const ver = version.replace('v', '').split('.');
+
+        ver[0] = Number(ver[0]) * 10000;
+        ver[1] = Number(ver[1]) * 1000;
+        ver[2] = Number(ver[2]) * 100;
+
+        return Number(this.sum(ver));
+    }
+
+    static sum(array) {
+        return array.reduce((a, b) => a + b, 0);
     }
 
     static async getRelease() {
-        const response = await fetch(this.url.releases);
+        const response = await fetch(this.url.apiReleases);
         const data = await response.json();
-        console.log(data[0]);
+        // console.log(data[0]);
         return data[0];
+    }
+
+    static setButtonHandler(asset) {
+        TMJS.listen('[data-action="download-update"]', 'click', (e) => {
+            window.backend.open(asset);
+        });
+        TMJS.listen('[data-action="check-update"]', 'click', (e) => {
+            this.init(true);
+        });
     }
 }
 
