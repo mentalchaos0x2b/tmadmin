@@ -2,6 +2,10 @@ const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron');
 const { log } = require('node:console');
 const path = require('node:path');
 
+const env = {
+  VNC_PASSWORD: "lkzjcfbn"
+}
+
 const isPackaged = require('electron-is-packaged');
 
 require('dotenv').config();
@@ -47,7 +51,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle('vnc_password', async () => {
     
-    return process.env.vnc_password || "";
+    return env.VNC_PASSWORD || "";
   });
 
   // On OS X it's common to re-create a window in the app when the
