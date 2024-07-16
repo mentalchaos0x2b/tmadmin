@@ -5,6 +5,7 @@
 ## Как скомпилировать
 
  - Создать файл .env в корневой папке
- - Добавить строчку VNC_PASSWORD=**YOU_PASSWORD**, которая содержит пароль от TightVNC для Control или View
+ <!-- - Добавить строчку VNC_PASSWORD=**YOU_PASSWORD**, которая содержит пароль от TightVNC для Control или View -->
+ - В файле ```/src/main.js``` изменить пароль от **TightVNC**: ```const env = {VNC_PASSWORD: "YOU_PASSWORD"}```
  - Выполнить комманды  ``` npm run package && npm run make ```
  - Запустить установщик из папки ```/out```
