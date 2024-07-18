@@ -6,7 +6,7 @@ require('dotenv').config();
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: 'src/assets/TMW.ico',
+    icon: 'src/assets/icons/admin.ico',
     name: 'TMAdmin',
     extraResource: "src/assets/modules",
   },
@@ -15,8 +15,8 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        setupIcon: 'src/assets/TMW.ico',
-        icon: 'src/assets/TMW.ico'
+        setupIcon: 'src/assets/icons/admin.ico',
+        icon: 'src/assets/icons/admin.ico'
       },
     },
     {
@@ -26,13 +26,13 @@ module.exports = {
     {
       name: '@electron-forge/maker-deb',
       config: {
-        icon: 'src/assets/TMW.ico'
+        icon: 'src/assets/icons/admin.ico'
       },
     },
     {
       name: '@electron-forge/maker-rpm',
       config: {
-        icon: 'src/assets/TMW.ico'
+        icon: 'src/assets/icons/admin.ico'
       },
     },
   ],
