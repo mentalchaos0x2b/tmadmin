@@ -30,7 +30,7 @@ import { TMLog } from './modules/tmlog';
 
 import { TMStorage } from './modules/tmstorage';
 import { TMJS } from './modules/tmjs';
-import { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate } from './modules/tmviews';
+import { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate, ViewFaq } from './modules/tmviews';
 
 import feather from 'feather-icons';
 
@@ -74,6 +74,10 @@ TMJS.documentReady(async () => {
     TMJS.eventObj(document, 'view-change', (e) => {
         if(e.detail.view == 'update') {
             ViewUpdate.init();
+        }
+
+        if(e.detail.view == 'faq') {
+            ViewFaq.init();
         }
     });      
 });

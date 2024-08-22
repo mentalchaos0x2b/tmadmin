@@ -42,6 +42,10 @@
       <i data-feather="edit"></i>
       <p>Заметки</p>
     </button>
+    <button data-view="faq" class="xr-button xr-button-animate xr-menu-button">
+      <i data-feather="help-circle"></i>
+      <p>FAQ<sup class="menu-label">BETA</sup></p>
+    </button>
     <button data-view="settings" class="xr-button xr-button-animate xr-menu-button">
       <i data-feather="sliders"></i>
       <p>Настройки</p>
@@ -144,6 +148,17 @@
           </label>
           <p>Автоматический ввод пароля TightVNC</p>
         </setting>
+
+        <setting>
+          <i data-feather="settings"></i>
+          <label class="toggler-wrapper style-1">
+            <input type="checkbox" data-setting="always-on-top">
+            <div class="toggler-slider">
+              <div class="toggler-knob"></div>
+            </div>
+          </label>
+          <p>Поверх остальных окон</p>
+        </setting>
       </view-window>
 
       <view-window data-title="Дополнительно">
@@ -152,6 +167,26 @@
           <p>Сбросить настройки</p>
         </button>
       </view-window>
+    </view>
+
+    <view data-view="faq">
+      <xr-row>
+        <input type="text" class="xr-input flex110 faq-search-value" placeholder="Поиск по базе">
+        <button class="xr-button faq-search-button"><i data-feather="search"></i></button>
+      </xr-row>
+      <view-window class="faq-window" data-title="FAQ">
+        <faq-loader>
+          <div class="xr-loading">
+            <span class="xr-loading-item"></span>
+            <span class="xr-loading-item"></span>
+            <span class="xr-loading-item"></span>
+          </div>
+        </faq-loader>
+
+        <faq-container>
+        </faq-container>
+      </view-window>
+      <button class="xr-button w100 add-faq">Добавить статью</button>
     </view>
 
     <view data-view="update">

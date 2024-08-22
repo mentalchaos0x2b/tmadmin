@@ -65,5 +65,6 @@ contextBridge.exposeInMainWorld('backend', {
     vncPassword: async () => { 
         const res = await ipcRenderer.invoke('vnc_password');
         return res;
-    }
+    },
+    alwaysOnTop: async (arg) => ipcRenderer.send('always_on_top', arg)
 });

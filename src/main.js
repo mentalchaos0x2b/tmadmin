@@ -15,9 +15,11 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+let mainWindow = null;
+
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 700,
     height: 450,
     minWidth: 700,
@@ -52,6 +54,10 @@ app.whenReady().then(() => {
   ipcMain.handle('vnc_password', async () => {
     
     return env.VNC_PASSWORD || "";
+  });
+
+  ipcMain.on('always_on_top', async (event, arg) => {
+    mainWindow.setAlwaysOnTop(arg);
   });
 
   // On OS X it's common to re-create a window in the app when the

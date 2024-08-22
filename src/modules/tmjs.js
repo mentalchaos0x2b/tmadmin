@@ -110,6 +110,11 @@ class TMJS {
         if(value === null) return element.style[style];
         element.style[style] = value;
     }
+
+    static empty(object) {
+        const element = document.querySelector(object);
+        element.innerHTML = "";
+    }
 }
 
 export { TMJS }

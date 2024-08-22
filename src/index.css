@@ -282,13 +282,13 @@ notepad {
 control-loader {
   position: absolute;
 
-  top: 2.5rem;
+  top: 4.5rem;
   left: 0;
 
   z-index: 9;
 
   width: 100%;
-  height: calc(100% - 2.5rem);
+  height: calc(100% - 4.5rem);
 
   display: flex;
   align-items: center;
@@ -671,4 +671,104 @@ update-loader {
   justify-content: center;
   flex-direction: column;
   gap: .5rem;
+}
+
+.faq-window {
+  height: calc(100vh - 6.5rem);
+
+  /* overflow: auto; */
+
+  background: var(--xr-color-bg-c);
+
+  position: relative;
+}
+
+faq-item {
+  width: 100%;
+}
+
+faq-item details {
+  width: 100%;
+  padding: .25rem;
+
+  border-radius: .25rem;
+
+  background: var(--xr-color-bg-d);
+}
+
+faq-item summary {
+  width: 100%;
+  cursor: pointer;
+}
+
+faq-item summary {
+  list-style-type: '▫  ';
+}
+
+faq-item details[open] > summary {
+  list-style-type: '▪  ';
+  margin-bottom: .5rem;
+}
+
+faq-container {
+  width: 100%;
+
+  padding: .25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .5rem;
+
+  overflow: auto;
+}
+
+faq-description {
+  word-break: break-all;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+faq-description img {
+  max-width: 100%;
+}
+
+faq-description * {
+  user-select: text;
+}
+
+.faq-author {
+  color: var(--xr-color-accent);
+}
+
+.w100 {
+  width: 100%;
+}
+
+.menu-label {
+  margin-left: .25rem;
+  color: var(--xr-color-accent);
+}
+
+faq-loader {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
 }

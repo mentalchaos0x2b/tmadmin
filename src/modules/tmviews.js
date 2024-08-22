@@ -9,6 +9,9 @@ import MarkdownIt, * as md from 'markdown-it';
 
 const global = {  }
 
+global.api = {};
+global.api.faq = "http://10.15.11.254:7893/";
+
 class TMView {
     static env = {
         appName: "TMAdmin",
@@ -184,6 +187,8 @@ class ViewControl {
         TMJS.deleteAttribute('.control-host', 'disabled');
         TMJS.deleteAttribute('.control-refresh', 'disabled');
 
+        this.getLAPS();
+
         if( output.stdout.toLowerCase() !== "true" ) {
             TMJS.hide('control-loader .xr-loading');
             TMJS.show('control-loader .xr-label');
@@ -196,8 +201,6 @@ class ViewControl {
         }
 
         this.hideLoader();
-
-        this.getLAPS();
     }
 
     static async getLAPS() {
@@ -266,6 +269,14 @@ class ViewSettings {
             },
             display_name: 'vnc-auto-password'
         },
+        alwaysOnTop: {
+            input: '[data-setting="always-on-top"]',
+            storage: {
+                get: () => eval(TMStorage.get('always-on-top', false)),
+                set: (value) => TMStorage.set('always-on-top', value)
+            },
+            display_name: 'always-on-top'
+        },
         reset: {
             input: '[data-setting="reset"]',
             action: () => TMStorage.clear()
@@ -277,8 +288,15 @@ class ViewSettings {
         this.setToggleHandlers();
     }
 
+    static alwayOnTopInit() {
+        window.backend.alwaysOnTop(TMJS.get(this.props.alwaysOnTop.input).checked);
+    }
+
     static toggleInit() {
         TMJS.get(this.props.vncAutoPassword.input).checked = this.props.vncAutoPassword.storage.get();
+        TMJS.get(this.props.alwaysOnTop.input).checked = this.props.alwaysOnTop.storage.get();
+
+        this.alwayOnTopInit();
     }
 
     static setToggleHandlers() {
@@ -288,6 +306,16 @@ class ViewSettings {
             const num = checked ? 1 : 0;
             TMLog.show('none', `Настройка изменена: ${this.props.vncAutoPassword.display_name} = ${num}`, true, 3000, 'settings');
         });
+
+        TMJS.listen(this.props.alwaysOnTop.input, 'change', (e) => {
+            const checked = e.currentTarget.checked;
+            this.props.alwaysOnTop.storage.set(checked);
+            const num = checked ? 1 : 0;
+            TMLog.show('none', `Настройка изменена: ${this.props.alwaysOnTop.display_name} = ${num}`, true, 3000, 'settings');
+
+            this.alwayOnTopInit();
+        });
+
         TMJS.listen(this.props.reset.input, 'click', (e) => {
             TMLog.show('none', `Настройки успешно сброшены`, true, 3000, 'settings');
             this.props.reset.action();
@@ -416,4 +444,85 @@ class ViewUpdate {
     }
 }
 
-export { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate };
+global.viewFaq = { }
+global.viewFaq.first = true;
+global.viewFaq.cache = [];
+
+class ViewFaq {
+
+    static init() {
+        TMJS.animateShow(TMJS.get('faq-loader'), 0);
+
+        this.initCards();
+
+        if(!global.viewFaq.first) return;
+
+        TMJS.listen('.faq-search-button', 'click', (e) => {
+            this.search(); 
+        });
+
+        TMJS.listen('.faq-search-value', 'keyup', (e) => {
+            if(e.key == "Enter") this.search(); 
+        });
+
+        TMJS.listen('.add-faq', 'click', (e) => {
+            window.backend.open(global.api.faq);
+        });
+
+        global.viewFaq.first = false;
+    }
+
+    static async initCards() {
+        TMJS.empty('faq-container');
+
+        await this.getAll();
+
+        this.generateCards();
+
+        TMJS.animateHide(TMJS.get('faq-loader'), 0);
+    }
+
+    static async search() {
+        TMJS.animateShow(TMJS.get('faq-loader'), 0);
+        TMJS.empty('faq-container');
+
+        global.viewFaq.cache = await fetch(global.api.faq + "api/search?s=" + TMJS.value('.faq-search-value')).then(res => res.json());
+
+        if(global.viewFaq.cache.length > 0) this.generateCards();
+        else TMJS.get('faq-container').innerHTML = `<p class="span-accent">Ничего не найдено</p>`;
+        TMJS.animateHide(TMJS.get('faq-loader'), 0);
+    }
+
+    static async getAll() {
+        global.viewFaq.cache = await fetch(global.api.faq + "api/get").then(res => res.json());
+        if(global.viewFaq.cache.length == 0) TMJS.get('faq-container').innerHTML = `<p class="span-accent">Статьи не найдены, напишите статью первым</p>`;
+    }
+
+    static generateCards = () => {
+        global.viewFaq.cache.forEach((element) => {
+           TMJS.get('faq-container').innerHTML += this.card(element.title, element.description, element.author); 
+        });
+    }
+
+    static setTargetDetail(target) {
+        TMJS.select('faq-container details', (element) => {
+            if(element != target) element.open = false; 
+        });
+    }
+
+    static card(title, description, author) {
+        return `
+        <faq-item>
+            <details>
+              <summary>${title}</summary>
+              <faq-description>
+                ${description}
+                <p class="faq-author">Создано: ${author}</p>
+              </faq-description>
+            </details>
+        </faq-item>
+        `;
+    }
+}
+
+export { TMView, ViewNotepad, ViewControl, ViewSettings, ViewUpdate, ViewFaq };
