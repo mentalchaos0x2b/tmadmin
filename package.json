@@ -1,7 +1,7 @@
 {
   "name": "tmadmin",
   "productName": "tmadmin",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
   "scripts": {
