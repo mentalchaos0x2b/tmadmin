@@ -500,7 +500,7 @@ class ViewFaq {
 
     static generateCards = () => {
         global.viewFaq.cache.forEach((element) => {
-           TMJS.get('faq-container').innerHTML += this.card(element.title, element.description, element.author); 
+           TMJS.get('faq-container').innerHTML += this.card(element.title, element.description, element.author, element.id); 
         });
     }
 
@@ -510,14 +510,18 @@ class ViewFaq {
         });
     }
 
-    static card(title, description, author) {
+    static card(title, description, author, id) {
         return `
         <faq-item>
             <details>
               <summary>${title}</summary>
               <faq-description>
                 ${description}
-                <p class="faq-author">Создано: ${author}</p>
+                <div class="faq-author">
+                    
+                    <p>Создано: ${author}</p>
+                    <button class="xr-button faq-edit" onclick="window.backend.open('http:\/\/10.15.11.254:7893\/edit\/${id}')">Изменить</button>
+                </div>
               </faq-description>
             </details>
         </faq-item>

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url(./assets/AnonymousPro.ttf);
+}
+
 body {
   padding: .5rem;
 
@@ -744,6 +749,24 @@ faq-description * {
 
 .faq-author {
   color: var(--xr-color-accent);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid var(--xr-text-color-secondary);
+
+  padding-top: .25rem;
+
+  width: 100%;
+}
+
+.faq-author p {
+  color: var(--xr-color-accent);
+}
+
+.faq-author .xr-button {
+  height: 1.5rem;
 }
 
 .w100 {
@@ -771,4 +794,14 @@ faq-loader {
 
   border-bottom-right-radius: .25rem;
   border-bottom-left-radius: .25rem;
+}
+
+.ql-code-block-container {
+  background: var(--xr-color-bg-b);
+  padding: .25rem;
+  border-radius: .25rem;
+}
+
+.ql-code-block-container * {
+  font-family: "Anonymous Pro";
 }
