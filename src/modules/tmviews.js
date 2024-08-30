@@ -115,6 +115,10 @@ class ViewControl {
         printers: {
             file: 'printers.lnk',
             object: '.module-printers'
+        },
+        nsl: {
+            file: 'nsl.exe',
+            object: '.module-nsl'
         }
     }
 
@@ -227,6 +231,10 @@ class ViewControl {
         TMJS.listen('.module-rdp', 'click', (e) => {
             TMLog.show("none", "RDP: Запуск", true, 3000, 'external-link');
             TMExecute.executeAsync(`mstsc /v:${this.getHostValue()}`);
+        });
+        TMJS.listen('.module-nsl', 'click', (e) => {
+            TMLog.show("none", "NSL: Запуск", true, 3000, 'external-link');
+            TMExecute.start(this.modules.nsl.file);
         });
         TMJS.listen('.module-card', 'click', async (e) => {
             const host = this.getHostValue();
