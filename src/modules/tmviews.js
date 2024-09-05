@@ -117,7 +117,7 @@ class ViewControl {
             object: '.module-printers'
         },
         nsl: {
-            file: 'nsl.exe',
+            file: 'nsg.exe',
             object: '.module-nsl'
         }
     }
