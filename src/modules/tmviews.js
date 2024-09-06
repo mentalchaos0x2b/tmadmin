@@ -455,6 +455,7 @@ class ViewUpdate {
 global.viewFaq = { }
 global.viewFaq.first = true;
 global.viewFaq.cache = [];
+global.viewFaq.error = false;
 
 class ViewFaq {
 
@@ -502,7 +503,16 @@ class ViewFaq {
     }
 
     static async getAll() {
-        global.viewFaq.cache = await fetch(global.api.faq + "api/get").then(res => res.json());
+        try {
+            global.viewFaq.cache = await fetch(global.api.faq + "api/get").then(res => res.json());
+        }
+        catch {
+            TMLog.show("none", "Ошибка соединения с сервером", true, 3000, 'alert-triangle');
+            global.viewFaq.error = true;
+            TMJS.get('faq-container').innerHTML = `<p class="span-accent">Ошибка соединения с сервером FAQ</p>`;
+            return;
+        }
+
         if(global.viewFaq.cache.length == 0) TMJS.get('faq-container').innerHTML = `<p class="span-accent">Статьи не найдены, напишите статью первым</p>`;
     }
 
