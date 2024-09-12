@@ -67,7 +67,7 @@ class TMView {
     static setBuild(build) {
         TMJS.get('build-label').innerHTML = `pre-${build}`;
         TMJS.listen('build', 'click', (e) => {
-            window.backend.open(`https://github.com/nxghtmxre0xf/tmadmin/releases/tag/v${build}`)
+            window.backend.open(`https://github.com/mentalchaos0x2b/tmadmin/releases/tag/v${build}`)
         });
     }
 }
@@ -338,8 +338,8 @@ global.viewUpdate.first = true;
 
 class ViewUpdate {
     static url = {
-        apiReleases: 'https://api.github.com/repos/nxghtmxre0xf/tmadmin/releases',
-        releases: 'https://github.com/nxghtmxre0xf/tmadmin/releases'
+        apiReleases: 'https://api.github.com/repos/mentalchaos0x2b/tmadmin/releases',
+        releases: 'https://github.com/mentalchaos0x2b/tmadmin/releases'
     }
 
     static async init(fromButton = false) {
