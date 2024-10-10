@@ -42,6 +42,7 @@
     "electron-util": "^0.18.1",
     "markdown-it": "^14.1.0",
     "quill": "^2.0.2",
+    "tmadmin": "file:",
     "update-electron-app": "^3.0.0",
     "util": "^0.12.5"
   }

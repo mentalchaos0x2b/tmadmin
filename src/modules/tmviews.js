@@ -117,8 +117,18 @@ class ViewControl {
             object: '.module-printers'
         },
         nsl: {
-            file: 'nsg.exe',
-            object: '.module-nsl'
+            file: 'NotifyServiceGui.exe',
+            object: '.module-nsl',
+            bat: "install.bat"
+        },
+        exec: {
+            copy: "/exec/copy.bat",
+            drivers: {
+                bat: "drivers.bat"
+            },
+            control: {
+                bat: "cp.bat"
+            }
         }
     }
 
@@ -226,14 +236,29 @@ class ViewControl {
         });
         TMJS.listen('.module-psexec', 'click', (e) => {
             TMLog.show("none", "PSExec: Запуск", true, 3000, 'external-link');
-            TMExecute.start(this.modules.psexec.file, `\\\\${this.getHostValue()} cmd`);
+            TMExecute.start(this.modules.psexec.file, `-s \\\\${this.getHostValue()} cmd`);
         });
+
+        //EXEC MODULES BAT
+        TMJS.listen('.module-exec-drivers', 'click', async (e) => {
+            await TMExecute.moduleAsync(this.modules.exec.copy);
+            TMExecute.moduleAsync(this.modules.psexec.file, `-s \\\\${this.getHostValue()} /C /F /I ${this.modules.exec.drivers.bat} /ACCEPTEULA`);
+            
+        });
+
+        TMJS.listen('.module-exec-cp', 'click', async (e) => {
+            await TMExecute.moduleAsync(this.modules.exec.copy);
+            TMExecute.moduleAsync(this.modules.psexec.file, `-s \\\\${this.getHostValue()} /C /F /I ${this.modules.exec.control.bat} /ACCEPTEULA`);
+        });
+
         TMJS.listen('.module-rdp', 'click', (e) => {
             TMLog.show("none", "RDP: Запуск", true, 3000, 'external-link');
             TMExecute.executeAsync(`mstsc /v:${this.getHostValue()}`);
         });
         TMJS.listen('.module-nsl', 'click', (e) => {
             TMLog.show("none", "NSL: Запуск", true, 3000, 'external-link');
+
+            TMExecute.start(this.modules.nsl.bat);
             TMExecute.start(this.modules.nsl.file);
         });
         TMJS.listen('.module-card', 'click', async (e) => {
