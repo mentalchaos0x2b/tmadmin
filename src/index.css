@@ -179,6 +179,7 @@ xr-row {
 
 view-window {
   width: 100%;
+  max-width: 768px;
 
   background: var(--xr-color-bg-e);
 
@@ -257,6 +258,47 @@ view[data-view="control"]:is(.view-inactive) .xr-host-input{
 
   animation: host-input .25s 1 forwards;
 } */
+
+xr-row {
+  position: relative;
+}
+
+.xr-host-log {
+  position: absolute;
+  top: 2.25rem;
+  right: 0;
+
+  width: 30rem;
+  height: 14.75rem;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  backdrop-filter: blur(5px);
+
+  border-radius: .25rem;
+
+  z-index: 999;
+
+  overflow: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  gap: .25rem;
+
+  padding: .5rem;
+}
+
+.xr-host-log > * {
+  width: 100%;
+}
+
+.xr-host-log > *::before {
+  content: '> ';
+  color: var(--xr-color-accent);
+}
 
 .view-100vp {
   height: calc(100vh - 2rem);

@@ -132,6 +132,10 @@ class ViewControl {
         }
     }
 
+    static dynamic = {
+        showHostLog: false
+    }
+
     static init() {
         
         TMJS.selectOne('control-loader', (element) => {
@@ -146,6 +150,8 @@ class ViewControl {
         this.setInputEvent();
 
         this.setButtonHandlers();
+
+        this.hostLog();
     }
 
     static showLoader() {
@@ -160,6 +166,18 @@ class ViewControl {
         });
     }
 
+    static hostLog() {
+        if(this.dynamic.showHostLog) {
+            TMJS.selectOne('.xr-host-log', (element) => {
+                TMJS.animateShow(element, 1);
+            });
+        } else {
+            TMJS.selectOne('.xr-host-log', (element) => {
+                TMJS.animateHide(element);
+            });
+        }
+    }
+
     static setInputEvent() {
         TMJS.listen('.control-host', 'keyup', (e) => {
             if( e.key === 'Enter' ) {
@@ -169,6 +187,13 @@ class ViewControl {
         TMJS.listen('.control-refresh', 'click', (e) => {
             this.pingHost();
         });
+        
+        TMJS.listen('.show-host-log', 'click', (e) => {
+            this.dynamic.showHostLog = !this.dynamic.showHostLog;
+            this.hostLog();
+        });
+
+        
 
         TMJS.listen('.control-host', 'input', (e) => {
             TMJS.selectOne('control-loader', (element) => {
@@ -222,6 +247,10 @@ class ViewControl {
         TMJS.value('.control-laps', output.stdout);
     }
 
+    static async copyBatToWin() {
+
+    }
+
     static async setButtonHandlers() {
         TMJS.listen('.module-vnc', 'click', async (e) => {
             TMLog.show("none", "TightVNC: Запуск", true, 3000, 'external-link');
@@ -240,9 +269,16 @@ class ViewControl {
         });
 
         //EXEC MODULES BAT
-        TMJS.listen('.module-exec-drivers', 'click', async (e) => {
-            await TMExecute.moduleAsync(this.modules.exec.copy);
-            TMExecute.moduleAsync(this.modules.psexec.file, `-s \\\\${this.getHostValue()} /C /F /I ${this.modules.exec.drivers.bat} /ACCEPTEULA`);
+        TMJS.listen('.module-exec-action', 'click', async (e) => {
+
+            await this.copyBatToWin();
+
+            const currentBat = "tm_" + TMJS.value('.module-exec-select-action') + ".bat";
+
+            console.log(currentBat);
+            
+
+            // TMExecute.moduleAsync(this.modules.psexec.file, `-s \\\\${this.getHostValue()} /C /F /I ${this.modules.exec.drivers.bat} /ACCEPTEULA`);
             
         });
 

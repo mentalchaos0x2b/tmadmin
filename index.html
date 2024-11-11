@@ -73,6 +73,14 @@
         <xr-row class="xr-host-input">
           <button class="xr-button control-refresh"><i data-feather="refresh-ccw"></i></button>
           <input class="xr-input control-host flex110" type="text" placeholder="Хост" tabindex="0">
+          <button class="xr-button show-host-log"><i data-feather="arrow-down"></i></button>
+
+          <div class="xr-host-log">
+            <!-- HOST LOG HERE -->
+             <p>pc5039</p>
+             <p>pc112</p>
+          </div>
+
         </xr-row>
         <input type="text" readonly class="xr-input xr-w100 control-laps" type="text" placeholder="LAPS">
         <flex-row>
@@ -133,13 +141,20 @@
 
       <view-window data-title="Выполнить на удалённом ПК">
         <flex-row>
-          <button class="xr-button module-exec-drivers">
+          <!-- <button class="xr-button module-exec-drivers">
             <i data-feather="hash"></i>
             <p>Открыть папку drivers</p>
-          </button>
-          <button class="xr-button module-exec-cp">
-            <i data-feather="hash"></i>
-            <p>Открыть панель управления</p>
+          </button> -->
+          <select class="xr-input module-exec-select-action">
+            <option value="spool">Перезапустить Диспетчер Печати</option>
+            <option value="plt5000">Открыть папку \\pc5000\plt</option>
+            <option value="plt5050">Открыть папку \\pc5050\plt</option>
+            <option value="cp">Открыть Панель Управления</option>
+            <option value="devices">Открыть Устройства и Принтеры</option>
+          </select>
+          <button class="xr-button module-exec-action">
+            <i data-feather="terminal"></i>
+            <p>Выполнить</p>
           </button>
         </flex-row>
       </view-window>
