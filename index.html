@@ -13,6 +13,8 @@
         e.remove();
       }, 500);
     }
+
+    let view_control = null;
   </script>
 </head>
 
@@ -77,8 +79,6 @@
 
           <div class="xr-host-log">
             <!-- HOST LOG HERE -->
-             <p>pc5039</p>
-             <p>pc112</p>
           </div>
 
         </xr-row>
@@ -188,6 +188,17 @@
             </div>
           </label>
           <p>Поверх остальных окон</p>
+        </setting>
+
+        <setting>
+          <i data-feather="settings"></i>
+          <label class="toggler-wrapper style-1">
+            <input type="checkbox" data-setting="show-current-date-log">
+            <div class="toggler-slider">
+              <div class="toggler-knob"></div>
+            </div>
+          </label>
+          <p>Показывать историю подключений только за сегодня</p>
         </setting>
       </view-window>
 

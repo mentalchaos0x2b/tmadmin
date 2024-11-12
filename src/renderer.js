@@ -15,9 +15,6 @@ import './xrkit.css'
 import './index.css';
 
 TMJS.documentReady(async () => {
-
-    window.backend.createLogFiles();
-
     // MAIN MODULES INIT
 
     feather.replace();
@@ -44,6 +41,8 @@ TMJS.documentReady(async () => {
     ViewControl.init();
 
     ViewSettings.init();
+
+    view_control = ViewControl;
 
     TMJS.eventObj(document, 'view-change', (e) => {
         if(e.detail.view == 'update') {

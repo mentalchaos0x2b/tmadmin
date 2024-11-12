@@ -9,7 +9,6 @@ class TMStorage {
                 [{ 'header': 1 }, { 'header': 2 }, { 'header': 3 }],
                 [{ 'script': 'sub'}, { 'script': 'super' }],
                 [{ 'color': [] }, { 'background': [] }],
-                [{ 'font': [] }],
                 ['clean']
               ]
         }

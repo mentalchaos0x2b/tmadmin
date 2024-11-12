@@ -3,13 +3,9 @@ import { exec, execFile } from 'node:child_process';
 import { promisify } from 'util';
 import path from 'node:path';
 
-import * as fs from 'node:fs';
-
 import { isPackaged } from 'electron-is-packaged';
 
-import crypto from 'crypto';
-
-import os from 'os';
+import logging from "./modules/tmlogging"
 
 const execAsync = promisify(exec);
 const invoke = promisify(ipcRenderer.invoke);
@@ -30,32 +26,11 @@ const dir = {
     modules: isPackaged ?  dirs.prod.modules() : dirs.dev.modules()
 }
 
-const log = {
-    key: crypto.Hash('sha256').update(os.hostname()).digest('hex'),
-    hosts: {
-        dir: "C:\\TMADMIN\\hosts",
-        file: "C:\\TMADMIN\\hosts\\log.tmadmin",
-        value: []
-    }
-}
-
-const hostsLog = {
-    get() {
-        
-    },
-   set() {
-        
-    }
-}
-
 contextBridge.exposeInMainWorld('backend', {
-    createLogFiles() {
-        if(!fs.existsSync(log.hosts.dir)) fs.mkdirSync(log.hosts.dir, { recursive: true });
-        if(!fs.existsSync(log.hosts.file)) fs.writeFileSync(log.hosts.file, "");
-
-        console.log(hostsLog.get());
-        console.log(hostsLog.set());
-        
+    log: {
+        get: () => logging.get(),
+        set: (value) => logging.set(value),
+        add: (value) => logging.add(value),
     },
     run: (command) => {
         exec(command);

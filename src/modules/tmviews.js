@@ -166,10 +166,28 @@ class ViewControl {
         });
     }
 
+    static setHostFromHistory(host) {
+        TMJS.value('.control-host', host);
+        this.pingHost();
+    }
+
     static hostLog() {
         if(this.dynamic.showHostLog) {
             TMJS.selectOne('.xr-host-log', (element) => {
                 TMJS.animateShow(element, 1);
+                const hosts = window.backend.log.get();
+                const date = new Intl.DateTimeFormat('ru-RU', { dateStyle: 'short' }).format(new Date());
+                let final = "";
+
+                const onlyCurrentDate = TMStorage.get('show-current-date-log', false);
+
+                hosts.reverse().forEach((result) => {
+                    
+                    if(result.time !== date && onlyCurrentDate === "true") return;
+
+                    final += `<p data-host="${result.to}" data-time="${result.time}" onclick="view_control.setHostFromHistory(this.getAttribute('data-host'))">${result.to}: <span class="${result.response ? "host-online" : "host-offline"}">${result.response ? "Достпуен" : "Недоступен"}</span></p>`
+                });
+                TMJS.html('.xr-host-log', final);
             });
         } else {
             TMJS.selectOne('.xr-host-log', (element) => {
@@ -179,11 +197,17 @@ class ViewControl {
     }
 
     static setInputEvent() {
+        TMJS.listen('.xr-host-log', 'mouseleave', (e) => {
+            this.dynamic.showHostLog = false;
+            this.hostLog();
+        });
+
         TMJS.listen('.control-host', 'keyup', (e) => {
             if( e.key === 'Enter' ) {
                 this.pingHost();
             }
         });
+
         TMJS.listen('.control-refresh', 'click', (e) => {
             this.pingHost();
         });
@@ -192,8 +216,6 @@ class ViewControl {
             this.dynamic.showHostLog = !this.dynamic.showHostLog;
             this.hostLog();
         });
-
-        
 
         TMJS.listen('.control-host', 'input', (e) => {
             TMJS.selectOne('control-loader', (element) => {
@@ -228,7 +250,16 @@ class ViewControl {
 
         this.getLAPS();
 
-        if( output.stdout.toLowerCase() !== "true" ) {
+        const response = output.stdout.toLowerCase() !== "true";
+
+        window.backend.log.add({
+            host: this.getHostValue(),
+            response: !response
+        });
+
+        this.hostLog();
+
+        if(response) {
             TMJS.hide('control-loader .xr-loading');
             TMJS.show('control-loader .xr-label');
 
@@ -346,6 +377,14 @@ class ViewSettings {
             },
             display_name: 'always-on-top'
         },
+        showCurrentDateLog: {
+            input: '[data-setting="show-current-date-log"]',
+            storage: {
+                get: () => eval(TMStorage.get('show-current-date-log', true)),
+                set: (value) => TMStorage.set('show-current-date-log', value)
+            },
+            display_name: 'show-current-date-log'
+        },
         reset: {
             input: '[data-setting="reset"]',
             action: () => TMStorage.clear()
@@ -364,6 +403,7 @@ class ViewSettings {
     static toggleInit() {
         TMJS.get(this.props.vncAutoPassword.input).checked = this.props.vncAutoPassword.storage.get();
         TMJS.get(this.props.alwaysOnTop.input).checked = this.props.alwaysOnTop.storage.get();
+        TMJS.get(this.props.showCurrentDateLog.input).checked = this.props.showCurrentDateLog.storage.get();
 
         this.alwayOnTopInit();
     }
@@ -381,6 +421,15 @@ class ViewSettings {
             this.props.alwaysOnTop.storage.set(checked);
             const num = checked ? 1 : 0;
             TMLog.show('none', `Настройка изменена: ${this.props.alwaysOnTop.display_name} = ${num}`, true, 3000, 'settings');
+
+            this.alwayOnTopInit();
+        });
+
+        TMJS.listen(this.props.showCurrentDateLog.input, 'change', (e) => {
+            const checked = e.currentTarget.checked;
+            this.props.showCurrentDateLog.storage.set(checked);
+            const num = checked ? 1 : 0;
+            TMLog.show('none', `Настройка изменена: ${this.props.showCurrentDateLog.display_name} = ${num}`, true, 3000, 'settings');
 
             this.alwayOnTopInit();
         });
